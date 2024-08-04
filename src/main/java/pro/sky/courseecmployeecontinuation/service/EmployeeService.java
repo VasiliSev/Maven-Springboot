@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class EmployeeService {
 
-    private static final int MAX_EMPLOYEES = 5;
+    private static final int MAX_EMPLOYEES = 10;
     private final List<Employee> employees = new ArrayList<>(MAX_EMPLOYEES);
 
     public void addEmployee(String firstName, String lastName) {

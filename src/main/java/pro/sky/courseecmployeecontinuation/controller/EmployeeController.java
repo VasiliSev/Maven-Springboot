@@ -38,6 +38,5 @@ public class EmployeeController {
     @GetMapping("/all")
     public Collection<Employee> getAll() {
         return service.getAll();
-
     }
 }
