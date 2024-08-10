@@ -1,0 +1,60 @@
+public class Main {
+    public static final List<Integer> nums = new ArrayList<>(List.of(1, 1, 2, 3, 4, 4, 5, 5, 6, 7));
+    public static final List<String> words = new ArrayList<>(List.of("one", "two", "two", "three", "three", "three", "four", "five", "five", "five", "five", "five"));
+
+    public static void main(String[] args) {
+
+        System.out.println("Hello world!");
+
+        task4();
+    }
+
+    public static void task1() {
+        System.out.println("Задача 1");
+        for (int num : nums) {
+            if (num % 2 != 0) {
+                System.out.println(num);
+            }
+        }
+    }
+
+    public static void task2() {
+        System.out.println("Задача 2");
+        Collections.sort(nums);
+
+        int previous = Integer.MIN_VALUE;
+        for (int num : nums) {
+            if (num % 2 == 0 && num != previous) {
+                System.out.println(num);
+                previous = num;
+            }
+
+        }
+    }
+
+    public static void task3() {
+        System.out.println("Задача 3");
+        Set<String> wordsUnique = new HashSet<>(words);
+        System.out.println(wordsUnique);
+    }
+
+    public static void task4() {
+        System.out.println("Задача 4");
+        int numbersOfRepeat = 0;
+        String test;
+        String previous = null;
+        for (String word : words) {
+            if (!word.equals(previous)) {
+                test = word;
+                for (String word1 : words) {
+                    if (word1.equals(test)) {
+                        numbersOfRepeat = numbersOfRepeat + 1;
+                    }
+                }
+            } else continue;
+            System.out.println(numbersOfRepeat);
+            numbersOfRepeat = 0;
+            previous = word;
+        }
+    }
+}
