@@ -21,13 +21,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public void addEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+    public String addEmployee(@RequestParam String firstName, @RequestParam String lastName) {
         service.addEmployee(firstName, lastName);
+        return ("Сотрудник" + firstName + lastName + "добавлен");
     }
 
     @GetMapping("/remove")
-    public void removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
         service.removeEmployee(firstName, lastName);
+        return ("Сотрудник" + firstName + lastName + "удален");
     }
 
     @GetMapping("/find")
