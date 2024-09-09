@@ -1,0 +1,282 @@
+КОНТРОЛЛЕР
+package pro.sky.courseecmployeecontinuation.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import pro.sky.courseecmployeecontinuation.model.Employee;
+import pro.sky.courseecmployeecontinuation.service.DepartmentService;
+import pro.sky.courseecmployeecontinuation.service.EmployeeService;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+
+    public final EmployeeService service;
+    public final DepartmentService deptService;
+
+    public EmployeeController(EmployeeService service, DepartmentService deptService) {
+        this.service = service;
+        this.deptService = deptService;
+    }
+
+
+    @GetMapping("/add")
+    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int departmentNumber, @RequestParam int salary) {
+        service.addEmployee(firstName, lastName, departmentNumber, salary);
+        return new Employee(firstName, lastName, departmentNumber, salary);
+    }
+
+    @GetMapping("/remove")
+    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+        service.removeEmployee(firstName, lastName);
+        return ("Сотрудник" + firstName + lastName + "удален");
+    }
+
+    @GetMapping("/find")
+    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+        return service.findEmployee(firstName, lastName);
+    }
+
+    @GetMapping("/all")
+    public List<Employee> allEmployees() {
+        return service.allEmployees();
+    }
+
+    @GetMapping("/departments/max-salary")
+    public Employee maxSalaryInDept(@RequestParam int departmentID) {
+        return deptService.maxSalaryInDept(departmentID);
+    }
+
+    @GetMapping("/departments/min-salary")
+    public Employee minSalaryInDept(@RequestParam int departmentID) {
+        return deptService.minSalaryInDept(departmentID);
+
+    }
+
+    @GetMapping("department/all")
+    public List<Employee> allInDepartment(@RequestParam int departmentID) {
+        return deptService.allInDepartment(departmentID);
+    }
+
+    @GetMapping("department/all")
+    public Map<Integer, List<Employee>> allDepartments(){
+        return deptService.allDepartments();
+    }
+}
+
+КОНСТРУКТОР КЛАССА
+package pro.sky.courseecmployeecontinuation.model;
+
+import java.util.Objects;
+
+public class Employee {
+
+    private final String firstName;
+    private final String lastName;
+    private final int departmentID;
+    private final int salary;
+
+    public Employee(String firstName, String lastName, int departmentID, int salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.departmentID = departmentID;
+        this.salary = salary;
+    }
+
+    public int getDepartmentID() {
+        return departmentID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFullName() {
+        return (firstName + " " + lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", departmentID=" + departmentID +
+                ", salary=" + salary +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return departmentID == employee.departmentID && salary == employee.salary && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, departmentID, salary);
+    }
+}
+
+ИНТЕРФЕЙС СЕРВИСА ПЕРСОНАЛА
+package pro.sky.courseecmployeecontinuation.service;
+
+import pro.sky.courseecmployeecontinuation.model.Employee;
+
+import java.util.List;
+
+public interface EmployeeServiceInterface {
+
+    Employee addEmployee(String firstName, String lastName, int departmentID, int salary);
+    String removeEmployee(String firstName, String lastName);
+    Employee findEmployee(String firstName, String lastName);
+    List<Employee> allEmployees();
+}
+
+СЕРВИС ПЕРСОНАЛА
+package pro.sky.courseecmployeecontinuation.service;
+
+import org.springframework.stereotype.Service;
+import pro.sky.courseecmployeecontinuation.model.Employee;
+import pro.sky.courseecmployeecontinuation.exeptions.EmployeeAlreadyAddedException;
+import pro.sky.courseecmployeecontinuation.exeptions.EmployeeNotFoundException;
+import pro.sky.courseecmployeecontinuation.exeptions.EmployeeStorageIsFullException;
+
+import java.util.*;
+
+@Service
+public class EmployeeService implements EmployeeServiceInterface {
+
+    private static final int MAX_EMPLOYEES = 10;
+    private final List<Employee> employees = new ArrayList<>(List.of(
+            new Employee("Ivan", "Alexiev", 1, 45000),
+            new Employee("Alexei", "Ivanov", 2, 60000),
+            new Employee("Igor", "Nicolaev", 3, 48000),
+            new Employee("Michail", "Boyarsky", 3, 54000),
+            new Employee("Dmitry", "Kharatyan", 4, 46000),
+            new Employee("Marlyn", "Makarov", 4, 52000),
+            new Employee("Gogi", "Kaladje", 5, 47000),
+            new Employee("Monya", "Shneerzon", 5, 51000)
+    ));
+
+    @Override
+    public Employee addEmployee(String firstName, String lastName, int departmentID, int salary) {
+        if (employees.size() >= MAX_EMPLOYEES) {
+            throw new EmployeeStorageIsFullException();
+        }
+        Employee employee = new Employee(firstName, lastName, departmentID, salary);
+        if (employees.contains(employee)) {
+            throw new EmployeeAlreadyAddedException();
+        }
+        employees.add(employee);
+        return employee;
+    }
+
+    @Override
+    public String removeEmployee(String firstName, String lastName) {
+        boolean employeeRemoved = employees.removeIf(e -> e.getFullName().equals(firstName + " " + lastName));
+        if (employeeRemoved) {
+            return "Сотрудник" + firstName + " " + lastName + "удален";
+        }
+        return "Сотрудник" + firstName + " " + lastName + "не найден";
+    }
+
+    public Employee findEmployee(String firstName, String lastName) {
+
+        return employees.stream()
+                .filter(e -> e.getFullName().equals(firstName + " " + lastName))
+                .findFirst()
+                .orElseThrow(EmployeeNotFoundException::new);
+    }
+
+    @Override
+    public List<Employee> allEmployees() {
+        return employees;
+    }
+}
+
+ИНТЕРФЕЙС СЕРВИСА ДЕПАРТАМЕНТА
+package pro.sky.courseecmployeecontinuation.service;
+
+import pro.sky.courseecmployeecontinuation.model.Employee;
+
+import java.util.List;
+import java.util.Map;
+
+public interface DepartmentServiceInterface {
+    Employee maxSalaryInDept (int departmentID);
+    Employee minSalaryInDept (int departmentID);
+    List<Employee> allInDepartment (int departmentID);
+    Map<Integer, List<Employee>> allDepartments();
+
+}
+
+СЕРВИС ДЕПАРТАМЕНТА
+package pro.sky.courseecmployeecontinuation.service;
+
+import pro.sky.courseecmployeecontinuation.model.Employee;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class DepartmentService implements DepartmentServiceInterface{
+
+    private final EmployeeService employeeService;
+
+    public DepartmentService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+
+    @Override
+    public Employee maxSalaryInDept(int departmentID) {
+        return employeeService.allEmployees()
+                .stream()
+                .filter(employee -> departmentID == employee.getDepartmentID())
+                .max(Comparator.comparingInt(Employee::getSalary))
+                .orElse(null);
+
+    }
+
+    @Override
+    public Employee minSalaryInDept(int departmentID) {
+        return employeeService.allEmployees()
+                .stream()
+                .filter(employee -> departmentID == employee.getDepartmentID())
+                .min(Comparator.comparingInt(Employee::getSalary))
+                .orElse(null);
+    }
+
+    @Override
+    public List<Employee> allInDepartment(int departmentID) {
+        return employeeService.allEmployees()
+                .stream()
+                .filter(employee -> departmentID == employee.getDepartmentID())
+                .toList();
+    }
+
+    @Override
+    public Map<Integer, List<Employee>> allDepartments() {
+        return employeeService.allEmployees()
+                .stream()
+                .collect(Collectors.groupingBy(Employee::getDepartmentID));
+    }
+}
