@@ -9,43 +9,57 @@ import pro.sky.courseecmployeecontinuation.exeptions.EmployeeStorageIsFullExcept
 import java.util.*;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements EmployeeServiceInterface {
 
     private static final int MAX_EMPLOYEES = 10;
-    private final Map<String, Employee> employees = new HashMap<>(MAX_EMPLOYEES);
+    private final List<Employee> employees = new ArrayList<>(List.of(
+            new Employee("Ivan", "Alexiev", 1, 45000),
+            new Employee("Alexei", "Ivanov", 2, 60000),
+            new Employee("Igor", "Nicolaev", 3, 48000),
+            new Employee("Michail", "Boyarsky", 3, 54000),
+            new Employee("Dmitry", "Kharatyan", 4, 46000),
+            new Employee("Marlyn", "Makarov", 4, 52000),
+            new Employee("Gogi", "Kaladje", 5, 47000),
+            new Employee("Monya", "Shneerzon", 5, 51000)
+    ));
 
-    public Employee addEmployee(String firstName, String lastName) {
+    @Override
+    public Employee addEmployee(String firstName, String lastName, int departmentID, int salary) {
         if (employees.size() >= MAX_EMPLOYEES) {
             throw new EmployeeStorageIsFullException();
         }
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.containsKey(employee.getFullName())) {
+        Employee employee = new Employee(firstName, lastName, departmentID, salary);
+        if (employees.contains(employee)) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.put(employee.getFullName(), employee);
+        employees.add(employee);
         return employee;
     }
 
-
-    public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.containsKey(employee.getFullName())) {
-            throw new EmployeeNotFoundException();
+    @Override
+    public String removeEmployee(String firstName, String lastName) {
+        boolean employeeRemoved = employees.removeIf(e -> e.getFullName().equals(firstName + " " + lastName));
+        if (employeeRemoved) {
+            return "Сотрудник" + firstName + " " + lastName + "удален";
         }
-        return employees.remove(employee.getFullName());
+        return "Сотрудник" + firstName + " " + lastName + "не найден";
     }
 
     public Employee findEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.containsKey(employee.getFullName())){
-            return employee;
-        }
-        throw new EmployeeNotFoundException();
 
+        return employees.stream()
+                .filter(e -> e.getFullName().equals(firstName + " " + lastName))
+                .findFirst()
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public Collection<Employee> getAll() {
-        return Collections.unmodifiableCollection(employees.values());
+    @Override
+    public List<Employee> allEmployees() {
+        return employees;
     }
 }
+
+
+
+
 
