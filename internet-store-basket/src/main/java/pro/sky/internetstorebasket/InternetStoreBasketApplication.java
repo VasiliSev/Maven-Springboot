@@ -10,6 +10,5 @@ public class InternetStoreBasketApplication {
 		SpringApplication.run(InternetStoreBasketApplication.class, args);
 	}
 
-
 }
 
