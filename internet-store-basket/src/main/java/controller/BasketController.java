@@ -18,7 +18,6 @@ public class BasketController {
         this.service = service;
     }
 
-
     @RequestMapping("/add")
     public String add(@RequestParam List<Integer> ids) {
         service.add(ids);
@@ -30,3 +29,4 @@ public class BasketController {
         return service.get();
     }
 }
+
