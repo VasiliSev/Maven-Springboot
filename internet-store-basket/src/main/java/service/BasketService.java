@@ -1,4 +1,4 @@
-package pro.sky.internetstorebasket;
+package service;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
