@@ -9,4 +9,5 @@ public class InternetStoreBasketApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InternetStoreBasketApplication.class, args);
 	}
+
 }
