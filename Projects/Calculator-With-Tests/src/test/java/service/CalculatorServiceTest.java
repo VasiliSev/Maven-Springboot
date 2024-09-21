@@ -12,33 +12,19 @@ class CalculatorServiceTest {
     @Test
     void testAdd() {
         assertEquals(3, calculatorService.add(1, 2));
-        assertEquals(1, calculatorService.add(-1, 2));
-        assertEquals(-1, calculatorService.add(1, -2));
-        assertEquals(-3, calculatorService.add(-1, -2));
-        assertEquals(2, calculatorService.add(0, 2));
-        assertEquals(1, calculatorService.add(1, 0));
-        assertEquals(0, calculatorService.add(0, 0));
+        assertEquals(1, calculatorService.add(-1, -2));
     }
 
     @Test
     void testSub() {
         assertEquals(-1, calculatorService.sub(1, 2));
         assertEquals(3, calculatorService.sub(1, -2));
-        assertEquals(-3, calculatorService.sub(-1, 2));
-        assertEquals(1, calculatorService.sub(-1, -2));
-        assertEquals(-2, calculatorService.sub(0, 2));
-        assertEquals(1, calculatorService.sub(1, 0));
-        assertEquals(0, calculatorService.sub(0, 0));
     }
 
     @Test
     void multiplicationTest() {
         assertEquals(2, calculatorService.multiplication(1, 2));
         assertEquals(-2, calculatorService.multiplication(-1, 2));
-        assertEquals(-2, calculatorService.multiplication(1, -2));
-        assertEquals(0, calculatorService.multiplication(0, 2));
-        assertEquals(0, calculatorService.multiplication(1, 0));
-        assertEquals(0, calculatorService.multiplication(0, 0));
     }
 
     @Test

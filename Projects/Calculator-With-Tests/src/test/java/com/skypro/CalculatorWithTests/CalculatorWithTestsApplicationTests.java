@@ -9,5 +9,4 @@ class CalculatorWithTestsApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

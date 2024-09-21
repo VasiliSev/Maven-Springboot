@@ -8,4 +8,5 @@ public interface CalculatorFunctions {
     int multiplication(int a, int b);
 
     float div(int a, int b);
+
 }
