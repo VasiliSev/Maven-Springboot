@@ -9,5 +9,4 @@ public class CalculatorWithTestsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CalculatorWithTestsApplication.class, args);
 	}
-
 }
