@@ -1,5 +1,6 @@
 package pro.sky.courseecmployeecontinuation.service;
 
+import org.springframework.stereotype.Service;
 import pro.sky.courseecmployeecontinuation.model.Employee;
 
 import java.util.Comparator;
@@ -7,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class DepartmentService implements DepartmentServiceInterface{
+@Service
+public class DepartmentService implements DepartmentServiceInterface {
 
     private final EmployeeService employeeService;
 
@@ -33,6 +35,15 @@ public class DepartmentService implements DepartmentServiceInterface{
                 .filter(employee -> departmentID == employee.getDepartmentID())
                 .min(Comparator.comparingInt(Employee::getSalary))
                 .orElse(null);
+    }
+
+    @Override
+    public int getSalaryInDept(int departmentID) {
+        return employeeService.allEmployees()
+                .stream()
+                .filter(employee -> departmentID == employee.getDepartmentID())
+                .mapToInt(Employee::getSalary)
+                .sum();
     }
 
     @Override

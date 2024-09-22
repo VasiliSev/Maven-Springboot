@@ -1,6 +1,8 @@
 package pro.sky.courseecmployeecontinuation.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import pro.sky.courseecmployeecontinuation.exeptions.ValidationException;
 import pro.sky.courseecmployeecontinuation.model.Employee;
 import pro.sky.courseecmployeecontinuation.exeptions.EmployeeAlreadyAddedException;
 import pro.sky.courseecmployeecontinuation.exeptions.EmployeeNotFoundException;
@@ -28,6 +30,7 @@ public class EmployeeService implements EmployeeServiceInterface {
         if (employees.size() >= MAX_EMPLOYEES) {
             throw new EmployeeStorageIsFullException();
         }
+        validateYes(firstName, lastName);
         Employee employee = new Employee(firstName, lastName, departmentID, salary);
         if (employees.contains(employee)) {
             throw new EmployeeAlreadyAddedException();
@@ -38,17 +41,18 @@ public class EmployeeService implements EmployeeServiceInterface {
 
     @Override
     public String removeEmployee(String firstName, String lastName) {
-        boolean employeeRemoved = employees.removeIf(e -> e.getFullName().equals(firstName + " " + lastName));
+        validateYes(firstName, lastName);
+        boolean employeeRemoved = employees.removeIf(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName));
         if (employeeRemoved) {
-            return "Сотрудник" + firstName + " " + lastName + "удален";
+            return "Сотрудник " + firstName + " " + lastName + " удален";
         }
-        return "Сотрудник" + firstName + " " + lastName + "не найден";
+        return "Сотрудник " + firstName + " " + lastName + " не найден";
     }
 
     public Employee findEmployee(String firstName, String lastName) {
-
+        validateYes(firstName, lastName);
         return employees.stream()
-                .filter(e -> e.getFullName().equals(firstName + " " + lastName))
+                .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName))
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
@@ -57,7 +61,14 @@ public class EmployeeService implements EmployeeServiceInterface {
     public List<Employee> allEmployees() {
         return employees;
     }
+
+    private void validateYes(String value1, String value2) {
+        if (!(StringUtils.isAlpha(value1) && StringUtils.isAlpha(value2))) {
+            throw new ValidationException();
+        }
+    }
 }
+
 
 
 

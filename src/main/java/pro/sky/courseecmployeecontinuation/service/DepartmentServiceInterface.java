@@ -8,6 +8,7 @@ import java.util.Map;
 public interface DepartmentServiceInterface {
     Employee maxSalaryInDept (int departmentID);
     Employee minSalaryInDept (int departmentID);
+    int getSalaryInDept(int departmentID);
     List<Employee> allInDepartment (int departmentID);
     Map<Integer, List<Employee>> allDepartments();
 

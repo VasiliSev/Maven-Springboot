@@ -1,9 +1,11 @@
 package pro.sky.courseecmployeecontinuation.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.courseecmployeecontinuation.exeptions.ValidationException;
 import pro.sky.courseecmployeecontinuation.model.Employee;
 import pro.sky.courseecmployeecontinuation.service.DepartmentService;
 import pro.sky.courseecmployeecontinuation.service.EmployeeService;
@@ -18,29 +20,28 @@ import java.util.Map;
 public class EmployeeController {
 
     public final EmployeeService service;
-    public final DepartmentService deptService;
 
-    public EmployeeController(EmployeeService service, DepartmentService deptService) {
+
+    public EmployeeController(EmployeeService service) {
         this.service = service;
-        this.deptService = deptService;
+
     }
 
 
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int departmentNumber, @RequestParam int salary) {
-        service.addEmployee(firstName, lastName, departmentNumber, salary);
-        return new Employee(firstName, lastName, departmentNumber, salary);
+    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int departmentID, @RequestParam int salary) {
+        return service.addEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), departmentID, salary);
     }
 
     @GetMapping("/remove")
     public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        service.removeEmployee(firstName, lastName);
-        return ("Сотрудник" + firstName + lastName + "удален");
+                return service.removeEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName));
     }
 
     @GetMapping("/find")
     public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
-        return service.findEmployee(firstName, lastName);
+
+        return service.findEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName));
     }
 
     @GetMapping("/all")
@@ -48,25 +49,7 @@ public class EmployeeController {
         return service.allEmployees();
     }
 
-    @GetMapping("/departments/max-salary")
-    public Employee maxSalaryInDept(@RequestParam int departmentID) {
-        return deptService.maxSalaryInDept(departmentID);
-    }
 
-    @GetMapping("/departments/mix-salary")
-    public Employee mixSalaryInDept(@RequestParam int departmentID) {
-        return deptService.minSalaryInDept(departmentID);
 
-    }
-
-    @GetMapping("department/all")
-    public List<Employee> allInDepartment(@RequestParam int departmentID) {
-        return deptService.allInDepartment(departmentID);
-    }
-
-    @GetMapping("department/all")
-    public Map<Integer, List<Employee>> allDepartments(){
-        return deptService.allDepartments();
-    }
 }
 
