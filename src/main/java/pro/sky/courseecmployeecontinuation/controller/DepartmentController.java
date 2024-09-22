@@ -16,28 +16,28 @@ public class DepartmentController {
 
     private final DepartmentService service;
 
-    public DepartmentController(DepartmentService service) {
+    public DepartmentController (DepartmentService service) {
         this.service = service;
     }
 
     @GetMapping("/max-salary")
-    public Employee maxSalaryInDept(@RequestParam int departmentID) {
+    public Employee maxSalaryInDept (@RequestParam int departmentID) {
         return service.maxSalaryInDept(departmentID);
     }
 
     @GetMapping("/min-salary")
-    public Employee minSalaryInDept(@RequestParam int departmentID) {
+    public Employee minSalaryInDept (@RequestParam int departmentID) {
         return service.minSalaryInDept(departmentID);
 
     }
 
     @GetMapping("salary/sum")
-    public int getSalaryInDept(@RequestParam int departmentID) {
+    public int getSalaryInDept (@RequestParam int departmentID) {
         return service.getSalaryInDept(departmentID);
     }
 
     @GetMapping("/all-in-dept")
-    public List<Employee> allInDepartment(@RequestParam int departmentID) {
+    public List<Employee> allInDepartment (@RequestParam int departmentID) {
         return service.allInDepartment(departmentID);
     }
 

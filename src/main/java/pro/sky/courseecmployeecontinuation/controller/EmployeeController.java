@@ -22,30 +22,30 @@ public class EmployeeController {
     public final EmployeeService service;
 
 
-    public EmployeeController(EmployeeService service) {
+    public EmployeeController (EmployeeService service) {
         this.service = service;
 
     }
 
 
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int departmentID, @RequestParam int salary) {
+    public Employee addEmployee (@RequestParam String firstName, @RequestParam String lastName, @RequestParam int departmentID, @RequestParam int salary) {
         return service.addEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), departmentID, salary);
     }
 
     @GetMapping("/remove")
-    public String removeEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+    public String removeEmployee (@RequestParam String firstName, @RequestParam String lastName) {
                 return service.removeEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName));
     }
 
     @GetMapping("/find")
-    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName) {
+    public Employee findEmployee (@RequestParam String firstName, @RequestParam String lastName) {
 
         return service.findEmployee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName));
     }
 
     @GetMapping("/all")
-    public List<Employee> allEmployees() {
+    public List<Employee> allEmployees () {
         return service.allEmployees();
     }
 

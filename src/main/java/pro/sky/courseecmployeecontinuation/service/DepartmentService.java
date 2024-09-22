@@ -13,13 +13,13 @@ public class DepartmentService implements DepartmentServiceInterface {
 
     private final EmployeeService employeeService;
 
-    public DepartmentService(EmployeeService employeeService) {
+    public DepartmentService (EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
 
     @Override
-    public Employee maxSalaryInDept(int departmentID) {
+    public Employee maxSalaryInDept (int departmentID) {
         return employeeService.allEmployees()
                 .stream()
                 .filter(employee -> departmentID == employee.getDepartmentID())
@@ -29,7 +29,7 @@ public class DepartmentService implements DepartmentServiceInterface {
     }
 
     @Override
-    public Employee minSalaryInDept(int departmentID) {
+    public Employee minSalaryInDept (int departmentID) {
         return employeeService.allEmployees()
                 .stream()
                 .filter(employee -> departmentID == employee.getDepartmentID())
@@ -38,7 +38,7 @@ public class DepartmentService implements DepartmentServiceInterface {
     }
 
     @Override
-    public int getSalaryInDept(int departmentID) {
+    public int getSalaryInDept (int departmentID) {
         return employeeService.allEmployees()
                 .stream()
                 .filter(employee -> departmentID == employee.getDepartmentID())
@@ -47,7 +47,7 @@ public class DepartmentService implements DepartmentServiceInterface {
     }
 
     @Override
-    public List<Employee> allInDepartment(int departmentID) {
+    public List<Employee> allInDepartment (int departmentID) {
         return employeeService.allEmployees()
                 .stream()
                 .filter(employee -> departmentID == employee.getDepartmentID())

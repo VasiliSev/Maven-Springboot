@@ -12,33 +12,33 @@ public class Employee {
     private final int departmentID;
     private final int salary;
 
-    public Employee(String firstName, String lastName, int departmentID, int salary) {
+    public Employee (String firstName, String lastName, int departmentID, int salary) {
         this.firstName = StringUtils.capitalize(firstName.toLowerCase());
         this.lastName = StringUtils.capitalize(lastName.toLowerCase());
         this.departmentID = departmentID;
         this.salary = salary;
     }
 
-    public int getDepartmentID() {
+    public int getDepartmentID () {
         return departmentID;
     }
 
-    public String getFirstName() {
+    public String getFirstName () {
         return firstName;
     }
 
-    public int getSalary() {
+    public int getSalary () {
         return salary;
     }
 
-    public String getLastName() {
+    public String getLastName () {
         return lastName;
     }
 
 
 
     @Override
-    public String toString() {
+    public String toString () {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -48,7 +48,7 @@ public class Employee {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
@@ -56,7 +56,7 @@ public class Employee {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode () {
         return Objects.hash(firstName, lastName, departmentID, salary);
     }
 }
