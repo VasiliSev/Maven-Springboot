@@ -26,7 +26,7 @@ public class EmployeeService implements EmployeeServiceInterface {
     ));
 
     @Override
-    public Employee addEmployee(String firstName, String lastName, int departmentID, int salary) {
+    public Employee addEmployee (String firstName, String lastName, int departmentID, int salary) {
         if (employees.size() >= MAX_EMPLOYEES) {
             throw new EmployeeStorageIsFullException();
         }
@@ -40,7 +40,7 @@ public class EmployeeService implements EmployeeServiceInterface {
     }
 
     @Override
-    public String removeEmployee(String firstName, String lastName) {
+    public String removeEmployee (String firstName, String lastName) {
         validateYes(firstName, lastName);
         boolean employeeRemoved = employees.removeIf(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName));
         if (employeeRemoved) {
@@ -48,8 +48,8 @@ public class EmployeeService implements EmployeeServiceInterface {
         }
         return "Сотрудник " + firstName + " " + lastName + " не найден";
     }
-
-    public Employee findEmployee(String firstName, String lastName) {
+    @Override
+    public Employee findEmployee (String firstName, String lastName) {
         validateYes(firstName, lastName);
         return employees.stream()
                 .filter(e -> e.getFirstName().equals(firstName) && e.getLastName().equals(lastName))
@@ -58,11 +58,11 @@ public class EmployeeService implements EmployeeServiceInterface {
     }
 
     @Override
-    public List<Employee> allEmployees() {
+    public List<Employee> allEmployees () {
         return employees;
     }
 
-    private void validateYes(String value1, String value2) {
+    private void validateYes (String value1, String value2) {
         if (!(StringUtils.isAlpha(value1) && StringUtils.isAlpha(value2))) {
             throw new ValidationException();
         }
