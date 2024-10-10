@@ -1,10 +1,7 @@
 package pro.sky.java.course2.examenservice.service;
-
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.examinservice.domain.Question;
-
 import java.util.*;
-
 import static java.util.Collections.unmodifiableCollection;
 
 @Service

@@ -1,5 +1,4 @@
 package pro.sky.java.course2.examinservice.domain;
-
 import java.util.Objects;
 
 public class Question {
