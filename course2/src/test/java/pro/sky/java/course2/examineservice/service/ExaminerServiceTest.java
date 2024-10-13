@@ -1,4 +1,4 @@
-package pro.sky.java.course2.service;
+package pro.sky.java.course2.examineservice.service;
 
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,11 +9,11 @@ import org.mockito.Mock;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import pro.sky.java.course2.examenservice.service.ExaminerServiceImpl;
+import pro.sky.java.course2.examineservice.service.ExaminerServiceImpl;
 
-import pro.sky.java.course2.examenservice.service.QuestionService;
-import pro.sky.java.course2.examinservice.domain.Question;
-import pro.sky.java.course2.exeptions.WrongQuestionAmountException;
+import pro.sky.java.course2.examineservice.service.QuestionService;
+import pro.sky.java.course2.examineservice.domain.Question;
+import pro.sky.java.course2.examineservice.exeptions.WrongQuestionAmountException;
 
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package pro.sky.java.course2.examineservice.controller;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.java.course2.examenservice.service.ExaminerService;
-import pro.sky.java.course2.examinservice.domain.Question;
+import pro.sky.java.course2.examineservice.service.ExaminerService;
+import pro.sky.java.course2.examineservice.domain.Question;
 import java.util.Collection;
 
 
