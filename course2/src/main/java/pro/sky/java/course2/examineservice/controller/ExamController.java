@@ -6,7 +6,7 @@ import java.util.Collection;
 
 
 @RestController
-@RequestMapping("/yourЙuestions")
+@RequestMapping("/yourQuestions")
 public class ExamController {
 
     private final ExaminerService service;
