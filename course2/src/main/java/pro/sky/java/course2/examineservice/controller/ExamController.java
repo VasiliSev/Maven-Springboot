@@ -19,4 +19,5 @@ public class ExamController {
                                             int amount){
         return this.service.getQuestion(amount);
     }
+
 }
