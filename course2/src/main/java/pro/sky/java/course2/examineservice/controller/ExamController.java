@@ -14,10 +14,10 @@ public class ExamController {
     public ExamController(ExaminerService examinerService) {
         this.service = examinerService;
     }
+
     @GetMapping
     public Collection<Question> getQuestion(@RequestParam("Number of questions")
                                             int amount){
         return this.service.getQuestion(amount);
     }
-
 }

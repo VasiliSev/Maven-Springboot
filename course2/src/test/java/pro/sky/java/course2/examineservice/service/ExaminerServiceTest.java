@@ -87,4 +87,5 @@ public class ExaminerServiceTest {
         assertThrows(WrongQuestionAmountException.class, () ->
                 examinerService.getQuestion(amount));
     }
+
 }

@@ -68,5 +68,4 @@ public class JavaQuestionServiceTest {
         assertThrows(IllegalStateException.class, questionService::getRandomQuestion);
 
     }
-
 }
