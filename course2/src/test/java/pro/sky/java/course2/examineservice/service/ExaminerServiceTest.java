@@ -87,5 +87,16 @@ public class ExaminerServiceTest {
         assertThrows(WrongQuestionAmountException.class, () ->
                 examinerService.getQuestion(amount));
     }
-
+    @ParameterizedTest
+    @ValueSource(floats = {1.2f})
+    void getQuestionNoIntTest(float amount) {
+        assertThrows(WrongQuestionAmountException.class, () ->
+                examinerService.getQuestion((int)amount));
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"abc"})
+    void getQuestionStringTest(String amount) {
+        assertThrows(NumberFormatException.class, () ->
+                examinerService.getQuestion(Integer.parseInt(amount)));
+    }
 }
