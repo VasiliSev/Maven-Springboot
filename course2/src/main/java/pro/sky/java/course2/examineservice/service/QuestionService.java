@@ -1,7 +1,5 @@
-package pro.sky.java.course2.examenservice.service;
-
-import pro.sky.java.course2.examinservice.domain.Question;
-
+package pro.sky.java.course2.examineservice.service;
+import pro.sky.java.course2.examineservice.domain.Question;
 import java.util.Collection;
 
 public interface QuestionService {
@@ -11,4 +9,5 @@ public interface QuestionService {
     Question remove (Question question);
     Collection <Question> getAll();
     Question getRandomQuestion();
+
 }

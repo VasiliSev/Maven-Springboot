@@ -1,9 +1,9 @@
-package pro.sky.java.course2.service;
+package pro.sky.java.course2.examineservice.service;
 
 import org.junit.jupiter.api.Test;
-import pro.sky.java.course2.examenservice.service.JavaQuestionService;
-import pro.sky.java.course2.examenservice.service.QuestionService;
-import pro.sky.java.course2.examinservice.domain.Question;
+import pro.sky.java.course2.examineservice.service.JavaQuestionService;
+import pro.sky.java.course2.examineservice.service.QuestionService;
+import pro.sky.java.course2.examineservice.domain.Question;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -68,5 +68,4 @@ public class JavaQuestionServiceTest {
         assertThrows(IllegalStateException.class, questionService::getRandomQuestion);
 
     }
-
 }

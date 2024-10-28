@@ -1,9 +1,7 @@
 package pro.sky.java.course2.examineservice.controller;
-
 import org.springframework.web.bind.annotation.*;
-import pro.sky.java.course2.examenservice.service.QuestionService;
-import pro.sky.java.course2.examinservice.domain.Question;
-
+import pro.sky.java.course2.examineservice.service.QuestionService;
+import pro.sky.java.course2.examineservice.domain.Question;
 import java.util.Collection;
 
 @RestController
@@ -32,4 +30,5 @@ public class JavaQuestionController {
                         @RequestParam("Answer Text") String answer) {
         return this.service.remove(new Question(question, answer));
     }
+
 }

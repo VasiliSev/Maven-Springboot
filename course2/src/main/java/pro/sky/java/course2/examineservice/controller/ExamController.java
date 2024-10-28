@@ -1,15 +1,12 @@
 package pro.sky.java.course2.examineservice.controller;
-
 import org.springframework.web.bind.annotation.*;
-import pro.sky.java.course2.examenservice.service.ExaminerService;
-import pro.sky.java.course2.examenservice.service.ExaminerServiceImpl;
-import pro.sky.java.course2.examinservice.domain.Question;
-
+import pro.sky.java.course2.examineservice.service.ExaminerService;
+import pro.sky.java.course2.examineservice.domain.Question;
 import java.util.Collection;
-import java.util.Random;
+
 
 @RestController
-@RequestMapping("/your questions")
+@RequestMapping("/yourQuestions")
 public class ExamController {
 
     private final ExaminerService service;
@@ -17,6 +14,7 @@ public class ExamController {
     public ExamController(ExaminerService examinerService) {
         this.service = examinerService;
     }
+
     @GetMapping
     public Collection<Question> getQuestion(@RequestParam("Number of questions")
                                             int amount){
