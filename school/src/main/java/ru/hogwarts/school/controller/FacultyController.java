@@ -47,12 +47,5 @@ public class FacultyController {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
-     @GetMapping
-    public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String colour){
-        if (colour != null && !colour.isBlank()){
-            return ResponseEntity.ok(facultyService.findByColour(colour));
-        }
-        return ResponseEntity.ok(Collections.emptyList());
-     }
 
 }
